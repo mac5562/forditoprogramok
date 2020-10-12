@@ -16,7 +16,8 @@ namespace fordito1
             SourceHandler SH = new SourceHandler(@currentDirectory+"/filename.txt", @"filename2.txt");
             SH.OpenFileToRead();
             Console.WriteLine(SH.content);
-            SH.ReplaceContent("new text");
+            SH.ReplaceFirst();
+            //SH.ReplaceContent("new text");
             Console.WriteLine(SH.content);
             SH.OpenFileToWrite();
             Console.ReadKey();

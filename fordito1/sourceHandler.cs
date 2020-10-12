@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace fordito1
 {
@@ -75,13 +76,54 @@ namespace fordito1
             try
             {
                 StreamWriter SW = new StreamWriter(File.Open(path2, FileMode.Create));
-                SW.WriteLine("some text");
+                SW.WriteLine(content);
                 SW.Flush();
                 SW.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+            }
+        }
+
+        public void ReplaceFirst()
+        {
+            Dictionary<string, string> FromTo = new Dictionary<string, string>();
+            content = Regex.Replace(content, @"//(.*?)\r?\n", "");
+            content = Regex.Replace(content, @"/\*(.*?)\*/", "");
+            content = Regex.Replace(content, @"/\*[\w\w]*\*/", "");
+
+            
+
+
+            FromTo.Add("   ", "  ");
+            FromTo.Add("\r\n"," ");
+            FromTo.Add("    ", " ");    //Tab to 1 space
+            FromTo.Add(" {", "{");
+            FromTo.Add(" }", "}");
+            FromTo.Add("{ ", "{");
+            FromTo.Add("} ", "}");
+            FromTo.Add(" (", "(");
+            FromTo.Add(" )", ")");
+            FromTo.Add("( ", "(");
+            FromTo.Add(") ", ")");
+            FromTo.Add(" ;", ";");
+            FromTo.Add("; ", ";");
+            FromTo.Add(" =", "=");
+            FromTo.Add("= ", "=");
+
+            foreach (KeyValuePair<string,string> item in FromTo)
+            {
+                ReplaceText(item.Key, item.Value);
+            }
+
+        }
+
+        public void ReplaceText(string from,string to)
+        {
+            while (content.Contains(from))
+            {
+                content = content.Replace(from, to);
             }
         }
     }
