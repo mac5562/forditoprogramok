@@ -18,6 +18,8 @@ namespace fordito1
             Console.WriteLine(SH.content);
             SH.ReplaceFirst();
             //SH.ReplaceContent("new text");
+            SH.ReplaceType();
+            SH.ReplaceCharchter();
             Console.WriteLine(SH.content);
             SH.OpenFileToWrite();
             Console.ReadKey();

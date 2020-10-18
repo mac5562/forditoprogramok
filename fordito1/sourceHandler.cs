@@ -119,11 +119,89 @@ namespace fordito1
 
         }
 
+        public void ReplaceType()
+        {
+            Dictionary<string, int> FromTo = new Dictionary<string, int>();
+
+            FromTo.Add("int",100);
+            FromTo.Add("uint", 101);
+            FromTo.Add("long", 102);
+            FromTo.Add("ulong", 103);
+            FromTo.Add("float", 104);
+            FromTo.Add("double", 105);
+            FromTo.Add("bool", 106);
+            FromTo.Add("char", 107);
+            FromTo.Add("string", 108);
+
+            foreach (KeyValuePair<string, int> item in FromTo)
+            {
+                ReplaceText2(item.Key, item.Value);
+            }
+        }
+
+        public void ReplaceCharchter()
+        {
+            Dictionary<string, int> FromTo = new Dictionary<string, int>();
+
+            FromTo.Add("(",200);
+            FromTo.Add(")", 201);
+            FromTo.Add("{", 202);
+            FromTo.Add("}", 203);
+            FromTo.Add("[", 204);
+            FromTo.Add("]", 205);
+            FromTo.Add("(\"", 206);
+            FromTo.Add("\'", 207);
+            FromTo.Add("\\", 208);
+            FromTo.Add("/", 209);
+            FromTo.Add("|", 210);
+            FromTo.Add("&", 211);
+            FromTo.Add("!=", 212);
+            FromTo.Add("!", 213);
+            FromTo.Add("==", 214);
+            FromTo.Add("=", 215);
+            FromTo.Add(">", 216);
+            FromTo.Add("<", 217);
+            FromTo.Add("<=", 218);
+            FromTo.Add(">=", 219);
+            FromTo.Add(".", 220);
+            FromTo.Add(";", 221);
+            FromTo.Add(":", 222);
+            FromTo.Add("%", 223);
+            FromTo.Add("++", 224);
+            FromTo.Add("--", 225);
+            FromTo.Add("-", 226);
+            FromTo.Add("@", 227);
+            FromTo.Add("*",228);
+
+            foreach (KeyValuePair<string, int> item in FromTo)
+            {
+                ReplaceText2(item.Key, item.Value);
+            }
+        }
+
+        public void ReplaceConst(string Content)
+        {
+            this.Content = Regex.Replace(Content, "[0-9]+", "CONST");
+        }
+
+        public void ReplaceVariable()
+        {
+            Content = Regex.Replace(Content, " [a-zA-Z0-9_-] ", " VAR ");
+        }
+
         public void ReplaceText(string from,string to)
         {
             while (content.Contains(from))
             {
                 content = content.Replace(from, to);
+            }
+        }
+
+        public void ReplaceText2(string from,int to)
+        {
+            while (content.Contains(from))
+            {
+                content = content.Replace(from, to.ToString());
             }
         }
     }
